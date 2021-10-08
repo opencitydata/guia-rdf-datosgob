@@ -9,6 +9,7 @@ prefixes:
   rml: http://semweb.mmlab.be/ns/rml#
   ql: http://semweb.mmlab.be/ns/ql#
   rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+  esadm: http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#
   escom: http://vocab.ciudadesabiertas.es/def/comercio/tejido-comercial
   escom-skos: http://vocab.linkeddata.es/datosabiertos/kos/comercio
   owl: http://www.w3.org/2002/07/owl
@@ -68,3 +69,12 @@ mappings:
     s: http://datos.madrid.es/recurso/direccionpostal/$(id_vial_edificio)-$(num_edificio)-$(Cod_Postal)
     po:
       - [a, esdir:DireccionPostal] # NO COMPELTO! faltaria sus propiedades de datos y objeto por definir
+
+  distrito:
+    sources:
+      - [/data/OPEN_DATA_Terrazas202107.csv~csv]
+    s: http://datos.madrid.es/recurso/distrito/$(id_distrito_local)
+    po:
+      - [a, esdam:Distrito]
+      - [owl:sameAs, $(wikidata_distrito)~iri] # NO COMPELTO! faltaria sus propiedades de datos y objeto por definir
+
