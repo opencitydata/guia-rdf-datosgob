@@ -10,19 +10,19 @@ prefixes:
   ql: http://semweb.mmlab.be/ns/ql#
   rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
   esadm: http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#
-  escom: http://vocab.ciudadesabiertas.es/def/comercio/tejido-comercial
-  escom-skos: http://vocab.linkeddata.es/datosabiertos/kos/comercio
+  escom: http://vocab.ciudadesabiertas.es/def/comercio/tejido-comercial/
+  escom-skos: http://vocab.linkeddata.es/datosabiertos/kos/comercio/
   owl: http://www.w3.org/2002/07/owl
-  skos: http://www.w3.org/2004/02/skos/core
-  rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns
-  vann: http://purl.org/vocab/vann
-  dc: http://purl.org/dc/elements/1.1
+  skos: http://www.w3.org/2004/02/skos/core#
+  rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+  dc: http://purl.org/dc/elements/1.1/
+  esdir: http://vocab.linkeddata.es/datosabiertos/def/commons/direccion-postal#
 
 
 mappings:
   terraza:
     sources:
-      - [/data/OPEN_DATA_Terrazas202107.csv~csv]
+      - [/Users/dchaves/Downloads/test/OPEN_DATA_Terrazas202108.csv~csv]
     s: http://datos.madrid.es/recurso/terraza/$(id_terraza)
     po:
       - [a, escom:Terraza]
@@ -33,7 +33,7 @@ mappings:
       - [schema:openingHours, Estacional Vier-Dom $(hora_ini_VS-es) - $(hora_fin_VS_es)]
       - [schema:openingHours, Anual Lun-Juev $(hora_ini_LJ-ra) - $(hora_fin_LJ_ra)]
       - [schema:openingHours, Anual Vier-Dom $(hora_ini_VS-ra) - $(hora_fin_VS_ra)] 
-      - [escom:periodoFuncionamiento,escom-skos:periodo-funcionamiento/$(id_periodo_funcionamiento)~iri]
+      - [escom:periodoFuncionamiento,escom-skos:periodo-funcionamiento/$(id_periodo_terraza)~iri]
       - p: escom:perteneceA
         o:
           - mapping: localcomercial
@@ -51,30 +51,21 @@ mappings:
 
   localcomercial:
     sources:
-      - [/data/OPEN_DATA_Terrazas202107.csv~csv]
+      - [/Users/dchaves/Downloads/test/OPEN_DATA_Terrazas202108.csv~csv]
     s: http://datos.madrid.es/recurso/localcomercial/$(id_local)
     po:
       - [a, escom:LocalComercial] # NO COMPELTO! faltaria sus propiedades de datos y objeto por definir
 
   licenciaapertura:
     sources:
-      - [/data/OPEN_DATA_Licencias202108.csv~csv]
+      - [/Users/dchaves/Downloads/test/OPEN_DATA_Licencias202108.csv~csv]
     s: http://datos.madrid.es/recurso/licenciaapertura/$(id_tipo_licencia)
     po:
       - [a, escom:LicenciaApertura] # NO COMPELTO! faltaria sus propiedades de datos y objeto por definir
 
   direccionpostal:
     sources:
-      - [/data/OPEN_DATA_Terrazas202107.csv~csv]
+      - [/Users/dchaves/Downloads/test/OPEN_DATA_Terrazas202108.csv~csv]
     s: http://datos.madrid.es/recurso/direccionpostal/$(id_vial_edificio)-$(num_edificio)-$(Cod_Postal)
     po:
       - [a, esdir:DireccionPostal] # NO COMPELTO! faltaria sus propiedades de datos y objeto por definir
-
-  distrito:
-    sources:
-      - [/data/OPEN_DATA_Terrazas202107.csv~csv]
-    s: http://datos.madrid.es/recurso/distrito/$(id_distrito_local)
-    po:
-      - [a, esdam:Distrito]
-      - [owl:sameAs, $(wikidata_distrito)~iri] # NO COMPELTO! faltaria sus propiedades de datos y objeto por definir
-
