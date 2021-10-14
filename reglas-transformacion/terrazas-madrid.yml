@@ -17,55 +17,56 @@ prefixes:
   rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
   dc: http://purl.org/dc/elements/1.1/
   esdir: http://vocab.linkeddata.es/datosabiertos/def/commons/direccion-postal#
+  geo_core: https://datos.ign.es/def/geo_core#
+  geosparql: http://www.opengis.net/ont/geosparql#
+  sf: http://wwww.opengis.net/ont/sf#
 
 
 mappings:
   terraza:
     sources:
-      - [/Users/dchaves/Downloads/test/OPEN_DATA_Terrazas202108.csv~csv]
+      - [/Users/dchaves/Downloads/test/Terrazas.csv~csv]
     s: http://datos.madrid.es/recurso/terraza/$(id_terraza)
     po:
       - [a, escom:Terraza]
       - [escom:superficie,$(Superficie_ES) ,xsd:float]
       - [escom:numeroMesasAutorizadas,$(mesas_es),xsd:integer]
       - [escom:numeroSillasAutorizadas,$(sillas_es),xsd:integer]
-      - [schema:openingHours, Estacional Lun-Juev $(hora_ini_LJ-es) - $(hora_fin_LJ_es)]
-      - [schema:openingHours, Estacional Vier-Dom $(hora_ini_VS-es) - $(hora_fin_VS_es)]
-      - [schema:openingHours, Anual Lun-Juev $(hora_ini_LJ-ra) - $(hora_fin_LJ_ra)]
-      - [schema:openingHours, Anual Vier-Dom $(hora_ini_VS-ra) - $(hora_fin_VS_ra)] 
+      - [schema:openingHours, Estacional Lun-Juev $(hora_ini_LJ_es) - $(hora_fin_LJ_es)]
+      - [schema:openingHours, Estacional Vier-Dom $(hora_ini_VS_es) - $(hora_fin_VS_es)]
+      - [schema:openingHours, Anual Lun-Juev $(hora_ini_LJ_ra) - $(hora_fin_LJ_ra)]
+      - [schema:openingHours, Anual Vier-Dom $(hora_ini_VS_ra) - $(hora_fin_VS_ra)] 
       - [escom:periodoFuncionamiento,escom-skos:periodo-funcionamiento/$(id_periodo_terraza)~iri]
       - p: escom:perteneceA
         o:
           - mapping: localcomercial
-      - p: escom:tieneLicenciaApertura
-        o:
-          - mapping: licenciaapertura
-            condition:
-              function: equal
-              parameters:
-                - [str1, $(id_local)]
-                - [str2, $(id_local)]
       - p: schema:address
         o:
           - mapping: direccionpostal
 
   localcomercial:
     sources:
-      - [/Users/dchaves/Downloads/test/OPEN_DATA_Terrazas202108.csv~csv]
+      - [/Users/dchaves/Downloads/test/Terrazas.csv~csv]
     s: http://datos.madrid.es/recurso/localcomercial/$(id_local)
     po:
       - [a, escom:LocalComercial] # NO COMPELTO! faltaria sus propiedades de datos y objeto por definir
+      - p: geosparql:hasGeometry
+        o:
+         - mapping: point
 
-  licenciaapertura:
+  point:
+    localcomercial:
     sources:
-      - [/Users/dchaves/Downloads/test/OPEN_DATA_Licencias202108.csv~csv]
-    s: http://datos.madrid.es/recurso/licenciaapertura/$(id_tipo_licencia)
+      - [/Users/dchaves/Downloads/test/Terrazas.csv~csv]
+    s: http://datos.madrid.es/recurso/localcomercial/$(id_local)/geometry
     po:
-      - [a, escom:LicenciaApertura] # NO COMPELTO! faltaria sus propiedades de datos y objeto por definir
+      - [a, sf:Point] # NO COMPELTO! faltaria sus propiedades de datos y objeto por definir
+      - [geo_core:xETRS89, $(coordenada_x_local), xsd:float]
+      - [geo_core:yETRS89, $(coordenada_y_local), xsd:float]
 
   direccionpostal:
     sources:
-      - [/Users/dchaves/Downloads/test/OPEN_DATA_Terrazas202108.csv~csv]
+      - [/Users/dchaves/Downloads/test/Terrazas.csv~csv]
     s: http://datos.madrid.es/recurso/direccionpostal/$(id_vial_edificio)-$(num_edificio)-$(Cod_Postal)
     po:
       - [a, esdir:DireccionPostal] # NO COMPELTO! faltaria sus propiedades de datos y objeto por definir
