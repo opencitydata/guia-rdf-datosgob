@@ -1,0 +1,467 @@
+prefixes: {xsd: http://www.w3.org/2001/XMLSchema#, rr: http://www.w3.org/ns/r2rml#,
+  rml: http://semweb.mmlab.be/ns/rml#, rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#,
+  ql: http://semweb.mmlab.be/ns/ql#, rdfs: http://www.w3.org/2000/01/rdf-schema#,
+  ns: http://vocab.ciudadesabiertas.es/def/transporte/autobus#}
+mappings:
+  triplesMapDireccionpostal:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://vocab.linkeddata.es/datosabiertos/def/urbanismo-infraestructuras/direccion-postal#DireccionPostal]
+  triplesMapContactpoint:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://schema.org/ContactPoint]
+    - [http://schema.org/alternateName, $()]
+    - [http://schema.org/email, $()]
+    - [http://schema.org/legalName, $()]
+    - [http://schema.org/telephone, $()]
+  triplesMapIncidencia:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://vocab.ciudadesabiertas.es/def/transporte/trafico#Incidencia]
+    - [http://vocab.ciudadesabiertas.es/def/transporte/trafico#incidenciaAdjunto,
+      $()]
+    - [http://vocab.ciudadesabiertas.es/def/transporte/trafico#numCarriles, $(),
+      xsd:integer]
+    - [http://vocab.ciudadesabiertas.es/def/transporte/trafico#numSentidos, $(),
+      xsd:integer]
+  triplesMapLinea:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, ns:Linea]
+    - p: ns:cabeceraLinea
+      o:
+      - mapping: triplesMapParada
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+    - p: ns:finalLinea
+      o:
+      - mapping: triplesMapParada
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+  triplesMapParada:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, ns:Parada]
+    - [ns:panelElectronico, $(), xsd:boolean]
+    - [ns:wifi, $(), xsd:boolean]
+  triplesMapJourneypattern:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://w3id.org/transmodel/journeys#JourneyPattern]
+    - p: ns:generadoPorIncidencia
+      o:
+      - mapping: triplesMapIncidencia
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+    - p: http://w3id.org/transmodel/journeys#on
+      o:
+      - mapping: triplesMapRoute
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+    - p: http://w3id.org/transmodel/journeys#prescribing
+      o:
+      - mapping: triplesMapDestinationdisplay
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+  triplesMapPoint:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://www.opengis.net/ont/sf#Point]
+    - [http://www.w3.org/2003/01/geo/wgs84_pos#lat, $(), xsd:float]
+    - [http://www.w3.org/2003/01/geo/wgs84_pos#long, $(), xsd:float]
+    - [https://datos.ign.es/def/geo_core#xETRS89, $(), xsd:float]
+    - [https://datos.ign.es/def/geo_core#yETRS89, $(), xsd:float]
+  triplesMapZone:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://w3id.org/transmodel/commons#Zone]
+  triplesMapVehiclejourney:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://w3id.org/transmodel/journeys#VehicleJourney]
+    - [http://w3id.org/transmodel/journeys#departureTime, $(), xsd:dateTime]
+    - [http://w3id.org/transmodel/journeys#journeyDuration, $(), xsd:dateTime]
+    - p: http://w3id.org/transmodel/journeys#composedOf
+      o:
+      - mapping: triplesMapHeadwayjourneygroup
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+    - p: http://w3id.org/transmodel/journeys#timedFrom
+      o:
+      - mapping: triplesMapTimingpointinjourneypattern
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+    - p: http://w3id.org/transmodel/journeys#workedOn
+      o:
+      - mapping: triplesMapDaytype
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+  triplesMapHeadwayjourneygroup:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://w3id.org/transmodel/journeys#HeadwayJourneyGroup]
+    - [http://w3id.org/transmodel/journeys#firstDepartureTime, $(), xsd:dateTime]
+    - [http://w3id.org/transmodel/journeys#lastDayOffset, $(), xsd:dateTime]
+    - [http://w3id.org/transmodel/journeys#lastDepartureTime, $(), xsd:dateTime]
+    - p: http://w3id.org/transmodel/journeys#determinedBy
+      o:
+      - mapping: triplesMapHeadwayinterval
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+  triplesMapServicecalendar:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://w3id.org/transmodel/journeys#ServiceCalendar]
+    - [http://w3id.org/transmodel/journeys#from, $(), xsd:date]
+    - [http://w3id.org/transmodel/journeys#to, $(), xsd:date]
+    - p: http://w3id.org/transmodel/journeys#definedBy
+      o:
+      - mapping: triplesMapDaytypeassignment
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+  triplesMapDaytypeassignment:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://w3id.org/transmodel/journeys#DayTypeAssignment]
+    - [http://w3id.org/transmodel/journeys#date, $(), xsd:dateTime]
+    - [http://w3id.org/transmodel/journeys#isAvailable, $(), xsd:boolean]
+    - p: http://w3id.org/transmodel/journeys#specifying
+      o:
+      - mapping: triplesMapDaytype
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+  triplesMapHeadwayinterval:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://w3id.org/transmodel/journeys#HeadwayInterval]
+    - [http://w3id.org/transmodel/journeys#maximumHeadwayInterval, $(), xsd:dateTime]
+    - [http://w3id.org/transmodel/journeys#minimumHeadwayInterval, $(), xsd:dateTime]
+    - [http://w3id.org/transmodel/journeys#scheduledHeadwayInterval, $(), xsd:dateTime]
+  triplesMapRoute:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://w3id.org/transmodel/journeys#Route]
+  triplesMapConcept:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://www.w3.org/2004/02/skos/core#Concept]
+  triplesMapScheduledstoppoint:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://w3id.org/transmodel/journeys#ScheduledStopPoint]
+    - [http://w3id.org/transmodel/journeys#forAlighting, $(), xsd:boolean]
+    - [http://w3id.org/transmodel/journeys#forBoarding, $(), xsd:boolean]
+    - p: http://w3id.org/transmodel/journeys#includedIn
+      o:
+      - mapping: triplesMapStoparea
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+  triplesMapStoparea:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://w3id.org/transmodel/journeys#StopArea]
+  triplesMapLinksequence:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://w3id.org/transmodel/journeys#LinkSequence]
+    - [http://w3id.org/transmodel/journeys#distance, $(), xsd:float]
+    - p: http://w3id.org/transmodel/journeys#madeUsing
+      o:
+      - mapping: triplesMapPointinlinksequence
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+  triplesMapPointinlinksequence:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://w3id.org/transmodel/journeys#PointInLinkSequence]
+    - [http://w3id.org/transmodel/journeys#distanceFromStart, $(), xsd:float]
+    - [http://w3id.org/transmodel/journeys#order, $(), xsd:integer]
+    - p: http://w3id.org/transmodel/journeys#viewedAs
+      o:
+      - mapping: 
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+  triplesMapDestinationdisplay:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://w3id.org/transmodel/journeys#DestinationDisplay]
+    - [http://w3id.org/transmodel/journeys#frontText, $()]
+  triplesMapLine:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://w3id.org/transmodel/journeys#Line]
+    - p: http://w3id.org/transmodel/journeys#presentedBy
+      o:
+      - mapping: triplesMapPresentation
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+  triplesMapPresentation:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://w3id.org/transmodel/commons#Presentation]
+    - [http://w3id.org/transmodel/commons#colour, $()]
+    - [http://w3id.org/transmodel/commons#textColour, $()]
+  triplesMapDaytype:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://w3id.org/transmodel/journeys#DayType]
+    - [http://w3id.org/transmodel/journeys#earliestTime, $(), xsd:dateTime]
+  triplesMapStoppointinjourneypattern:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://w3id.org/transmodel/journeys#StopPointInJourneyPattern]
+  triplesMapTimingpointinjourneypattern:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://w3id.org/transmodel/journeys#TimingPointInJourneyPattern]
+  triplesMapOrganisation:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://w3id.org/transmodel/organisations#Organisation]
+    - p: http://w3id.org/transmodel/organisations#characterisedBy
+      o:
+      - mapping: triplesMapContactdetails
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+  triplesMapContactdetails:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://w3id.org/transmodel/organisations#ContactDetails]
+  triplesMapOperator:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://w3id.org/transmodel/organisations#Operator]
+    - p: http://w3id.org/transmodel/organisations#operating
+      o:
+      - mapping: triplesMapLine
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+    - p: http://w3id.org/transmodel/organisations#servingPTFor
+      o:
+      - mapping: triplesMapAuthority
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+  triplesMapAuthority:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://w3id.org/transmodel/organisations#Authority]
+  triplesMapGeometry:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://www.opengis.net/ont/geosparql#Geometry]
+  triplesMapConceptscheme:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://www.w3.org/2004/02/skos/core#ConceptScheme]
+  triplesMapObservation:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://www.w3.org/ns/sosa/Observation]
+    - [http://www.w3.org/ns/sosa/resultTime, $(), xsd:dateTime]
+    - p: http://www.w3.org/ns/sosa/hasFeatureOfInterest
+      o:
+      - mapping: triplesMapFeatureofinterest
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+    - p: http://www.w3.org/ns/sosa/madeBySensor
+      o:
+      - mapping: triplesMapSensor
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+  triplesMapFeatureofinterest:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://www.w3.org/ns/sosa/FeatureOfInterest]
+  triplesMapSensor:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://www.w3.org/ns/sosa/Sensor]
+  triplesMapRealtimepassingtime:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, ns:RealTimePassingTime]
+    - [ns:expectedArrivalTime, $()]
+  triplesMapIncidenciaplanificada:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://vocab.ciudadesabiertas.es/def/transporte/trafico#IncidenciaPlanificada]
+    - [http://vocab.ciudadesabiertas.es/def/transporte/trafico#esRecurrente, $(),
+      xsd:boolean]
+    - [http://vocab.ciudadesabiertas.es/def/transporte/trafico#fechaFinPrevista,
+      $(), xsd:dateTime]
+    - [http://vocab.ciudadesabiertas.es/def/transporte/trafico#recurrencia, $()]
+  triplesMapPlace:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://w3id.org/transmodel/commons#Place]
+  triplesMapFeature:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://www.opengis.net/ont/geosparql#Feature]
+  triplesMapPointinjourneypattern:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://w3id.org/transmodel/journeys#PointInJourneyPattern]
+  triplesMapPointonroute:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://w3id.org/transmodel/journeys#PointOnRoute]
+  triplesMapRoutepoint:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://w3id.org/transmodel/journeys#RoutePoint]
+  triplesMapOrganization:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://www.w3.org/ns/org#Organization]
+  triplesMapSpatialobject:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://www.opengis.net/ont/geosparql#SpatialObject]

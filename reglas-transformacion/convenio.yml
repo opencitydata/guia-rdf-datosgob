@@ -1,0 +1,251 @@
+prefixes: {xsd: http://www.w3.org/2001/XMLSchema#, rr: http://www.w3.org/ns/r2rml#,
+  rml: http://semweb.mmlab.be/ns/rml#, rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#,
+  ql: http://semweb.mmlab.be/ns/ql#, rdfs: http://www.w3.org/2000/01/rdf-schema#,
+  ns: http://vocab.ciudadesabiertas.es/def/sector-publico/convenio#}
+mappings:
+  triplesMapDate:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://schema.org/Date]
+  triplesMapDatetime:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://schema.org/DateTime]
+  triplesMapThing:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://schema.org/Thing]
+  triplesMapSuscripciondeconvenioporentidad:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, ns:SuscripcionDeConvenioPorEntidad]
+    - [ns:obligacionEconomicaEntidad, $(), xsd:float]
+    - p: ns:convenioSuscrito
+      o:
+      - mapping: triplesMapConvenio
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+    - p: ns:entidadSuscriptora
+      o:
+      - mapping: triplesMapOrganization
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+    - p: ns:firmanteEntidad
+      o:
+      - mapping: triplesMapMembership
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+    - p: ns:obligadoPrestacionesEntidad
+      o:
+      - mapping: triplesMapOrganization
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+  triplesMapConvenio:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, ns:Convenio]
+    - [ns:fechaFinalizacion, $(), xsd:date]
+    - [ns:fechaInicio, $(), xsd:date]
+    - [ns:fechaRegistro, $(), xsd:date]
+    - [ns:fechaResolucionFinalizacion, $(), xsd:date]
+    - [ns:fechaSuscripcion, $(), xsd:date]
+    - [ns:objeto, $()]
+    - [ns:obligacionEconomicaAyuntamiento, $(), xsd:float]
+    - p: ns:suscritoPor
+      o:
+      - mapping: triplesMapSuscripciondeconvenioporentidad
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+    - p: ns:documento
+      o:
+      - mapping: triplesMapDigitaldocument
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+    - p: ns:esVariacionDe
+      o:
+      - mapping: triplesMapConvenio
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+    - p: ns:variacion
+      o:
+      - mapping: triplesMapConvenio
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+    - p: ns:firmanteAyuntamiento
+      o:
+      - mapping: triplesMapMembership
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+    - p: ns:instrumenta
+      o:
+      - mapping: triplesMapSubvencion
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+    - p: ns:obligadoPrestacionesAyuntamiento
+      o:
+      - mapping: triplesMapOrganization
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+  triplesMapDigitaldocument:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://schema.org/DigitalDocument]
+  triplesMapOrganization:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://www.w3.org/ns/org#Organization]
+    - p: http://vocab.linkeddata.es/datosabiertos/def/sector-publico/organizacion#ambitoCompetencias
+      o:
+      - mapping: triplesMapGovernmentaladministrativeregion
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+    - p: http://www.w3.org/ns/org#classification
+      o:
+      - mapping: triplesMapConcept
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+  triplesMapMembership:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://www.w3.org/ns/org#Membership]
+    - p: http://www.w3.org/ns/org#organization
+      o:
+      - mapping: triplesMapOrganization
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+    - p: http://www.w3.org/ns/org#role
+      o:
+      - mapping: triplesMapRole
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+  triplesMapDistrito:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#Distrito]
+  triplesMapSubvencion:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://vocab.linkeddata.es/datosabiertos/def/sector-publico/subvencion#Subvencion]
+    - [http://vocab.linkeddata.es/datosabiertos/def/sector-publico/subvencion#fechaAdjudicacion,
+      $(), xsd:date]
+    - [http://vocab.linkeddata.es/datosabiertos/def/sector-publico/subvencion#importe,
+      $(), xsd:float]
+  triplesMapConcept:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://www.w3.org/2004/02/skos/core#Concept]
+  triplesMapGovernmentaladministrativeregion:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://dbpedia.org/ontology/GovernmentalAdministrativeRegion]
+  triplesMapConceptscheme:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://www.w3.org/2004/02/skos/core#ConceptScheme]
+  triplesMapRole:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://www.w3.org/ns/org#Role]
+  triplesMapDistrict:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://dbpedia.org/ontology/District]
+  triplesMapMunicipality:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://dbpedia.org/ontology/Municipality]
+  triplesMapCreativework:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://schema.org/CreativeWork]
+  triplesMapMunicipio:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#Municipio]
+  triplesMapAgent:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://xmlns.com/foaf/0.1/Agent]

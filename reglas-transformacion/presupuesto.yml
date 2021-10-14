@@ -1,0 +1,245 @@
+prefixes: {xsd: http://www.w3.org/2001/XMLSchema#, rr: http://www.w3.org/ns/r2rml#,
+  rml: http://semweb.mmlab.be/ns/rml#, rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#,
+  ql: http://semweb.mmlab.be/ns/ql#, rdfs: http://www.w3.org/2000/01/rdf-schema#,
+  ns: http://vocab.ciudadesabiertas.es/def/hacienda/presupuesto#}
+mappings:
+  triplesMapInversionfinancieramentesostenible:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, ns:InversionFinancieramenteSostenible]
+    - [ns:ambitoGlobalCiudad, $(), xsd:boolean]
+    - p: ns:ambito
+      o:
+      - mapping: triplesMapDistrito
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+    - p: ns:presupuestoInversion
+      o:
+      - mapping: triplesMapPresupuestogasto
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+  triplesMapDistrito:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#Distrito]
+  triplesMapConcept:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://www.w3.org/2004/02/skos/core#Concept]
+    - p: http://www.w3.org/2004/02/skos/core#inScheme
+      o:
+      - mapping: triplesMapConceptscheme
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+  triplesMapPresupuestogasto:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, ns:PresupuestoGasto]
+    - [ns:creditoPresupuestarioInicial, $(), xsd:float]
+    - p: ns:ejecucionGasto
+      o:
+      - mapping: triplesMapEjecuciongasto
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+  triplesMapEjecuciongasto:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, ns:EjecucionGasto]
+    - [ns:creditoAutorizado, $(), xsd:float]
+    - [ns:creditoDefinitivoVigente, $(), xsd:float]
+    - [ns:creditoDisponible, $(), xsd:float]
+    - [ns:creditoModificaciones, $(), xsd:float]
+    - [ns:creditoRetenido, $(), xsd:float]
+    - [ns:obligacionesPendientes31Dic, $(), xsd:float]
+    - [ns:obligacionesReconocidasNetas, $(), xsd:float]
+    - [ns:pagos, $(), xsd:float]
+    - [ns:totalGastoComprometido, $(), xsd:float]
+  triplesMapPresupuestoingreso:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, ns:PresupuestoIngreso]
+    - [ns:previsionInicial, $(), xsd:float]
+    - p: ns:ejecucionIngreso
+      o:
+      - mapping: triplesMapEjecucioningreso
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+  triplesMapEjecucioningreso:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, ns:EjecucionIngreso]
+    - [ns:derechosAnulados, $(), xsd:float]
+    - [ns:derechosCancelados, $(), xsd:float]
+    - [ns:derechosPendientesCobro31Dic, $(), xsd:float]
+    - [ns:derechosReconocidos, $(), xsd:float]
+    - [ns:derechosReconocidosNetos, $(), xsd:float]
+    - [ns:previsionDefinitiva, $(), xsd:float]
+    - [ns:previsionModificaciones, $(), xsd:float]
+    - [ns:recaudacionNeta, $(), xsd:float]
+  triplesMapPresupuesto:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, ns:Presupuesto]
+    - [ns:anioFiscal, $()]
+    - [ns:estadoProrroga, $(), xsd:boolean]
+    - [ns:fechaAprobacionPleno, $(), xsd:dateTime]
+    - p: ns:liquidacion
+      o:
+      - mapping: triplesMapLiquidacion
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+    - p: ns:presupuestoGasto
+      o:
+      - mapping: triplesMapPresupuestogasto
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+    - p: ns:presupuestoIngreso
+      o:
+      - mapping: triplesMapPresupuestoingreso
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+  triplesMapLiquidacion:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, ns:Liquidacion]
+    - [ns:ajustes, $(), xsd:float]
+    - [ns:fechaAprobacionLiquidacion, $(), xsd:dateTime]
+    - [ns:remanenteTesoreria, $(), xsd:float]
+    - [ns:resultadoPresupuestario, $(), xsd:float]
+    - p: ns:liquidacionGasto
+      o:
+      - mapping: triplesMapLiquidaciongasto
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+    - p: ns:liquidacionIngreso
+      o:
+      - mapping: triplesMapLiquidacioningreso
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+  triplesMapLiquidaciongasto:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, ns:LiquidacionGasto]
+    - [ns:remanenteCredito, $(), xsd:float]
+  triplesMapLiquidacioningreso:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, ns:LiquidacionIngreso]
+    - [ns:excesoDefectoPrevision, $(), xsd:float]
+  triplesMapProperinterval:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://www.w3.org/2006/time#ProperInterval]
+  triplesMapConceptscheme:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://www.w3.org/2004/02/skos/core#ConceptScheme]
+  triplesMapTemporalentity:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://www.w3.org/2006/time#TemporalEntity]
+    - p: http://www.w3.org/2006/time#hasBeginning
+      o:
+      - mapping: triplesMapInstant
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+    - p: http://www.w3.org/2006/time#hasEnd
+      o:
+      - mapping: triplesMapInstant
+        function:
+          condition: equal
+          parameters:
+          - [str1, $()]
+          - [str2, $()]
+  triplesMapInstant:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://www.w3.org/2006/time#Instant]
+    - [http://www.w3.org/2006/time#inXSDDate, $(), xsd:date]
+  triplesMapDistrict:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://dbpedia.org/ontology/District]
+  triplesMapFeature:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://www.geonames.org/ontology#Feature]
+  triplesMapMunicipio:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#Municipio]
+  triplesMapInterval:
+    sources:
+    - []
+    s: http://$()
+    po:
+    - [a, http://www.w3.org/2006/time#Interval]
