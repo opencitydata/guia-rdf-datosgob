@@ -1,17 +1,23 @@
 prefixes: {xsd: http://www.w3.org/2001/XMLSchema#, rr: http://www.w3.org/ns/r2rml#,
   rml: http://semweb.mmlab.be/ns/rml#, rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#,
   ql: http://semweb.mmlab.be/ns/ql#, rdfs: http://www.w3.org/2000/01/rdf-schema#,
-  ns: http://vocab.ciudadesabiertas.es/def/sector-publico/agenda-municipal#}
+  schema.org: http://schema.org/, agenda-municipal: http://vocab.ciudadesabiertas.es/def/sector-publico/agenda-municipal#,
+  ontology: http://www.geonames.org/ontology#, core: http://www.w3.org/2004/02/skos/core#,
+  0.1: http://xmlns.com/foaf/0.1/, org: http://www.w3.org/ns/org#, callejero: http://vocab.linkeddata.es/datosabiertos/def/urbanismo-infraestructuras/callejero#,
+  direccion-postal: http://vocab.linkeddata.es/datosabiertos/def/commons/direccion-postal#,
+  locn: http://www.w3.org/ns/locn#, territorio: http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#,
+  equipamiento: http://vocab.linkeddata.es/datosabiertos/def/urbanismo-infraestructuras/equipamiento#,
+  rdf-schema: http://www.w3.org/2000/01/rdf-schema#, organizacion: http://vocab.linkeddata.es/datosabiertos/def/sector-publico/organizacion#}
 mappings:
   triplesMapEvent:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/event/$()
     po:
-    - [a, http://schema.org/Event]
-    - [http://schema.org/endDate, $(), xsd:dateTime]
-    - [http://schema.org/startDate, $(), xsd:dateTime]
-    - p: http://schema.org/location
+    - [a, schema.org:Event]
+    - [schema.org:endDate, $(), xsd:dateTime]
+    - [schema.org:startDate, $(), xsd:dateTime]
+    - p: schema.org:location
       o:
       - mapping: triplesMapPlace
         function:
@@ -19,7 +25,7 @@ mappings:
           parameters:
           - [str1, $()]
           - [str2, $()]
-    - p: http://schema.org/subEvent
+    - p: schema.org:subEvent
       o:
       - mapping: triplesMapEvent
         function:
@@ -27,7 +33,7 @@ mappings:
           parameters:
           - [str1, $()]
           - [str2, $()]
-    - p: http://schema.org/superEvent
+    - p: schema.org:superEvent
       o:
       - mapping: triplesMapEvent
         function:
@@ -38,17 +44,17 @@ mappings:
   triplesMapPlace:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/place/$()
     po:
-    - [a, http://schema.org/Place]
-    - [http://schema.org/address, $()]
+    - [a, schema.org:Place]
+    - [schema.org:address, $()]
   triplesMapThing:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/thing/$()
     po:
-    - [a, http://schema.org/Thing]
-    - p: http://schema.org/name
+    - [a, schema.org:Thing]
+    - p: schema.org:name
       o:
       - mapping: triplesMapText
         function:
@@ -59,17 +65,19 @@ mappings:
   triplesMapText:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/text/$()
     po:
-    - [a, http://schema.org/Text]
+    - [a, schema.org:Text]
   triplesMapEvento:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/evento/$()
     po:
-    - [a, ns:Evento]
-    - [ns:reunionLobby, $(), xsd:boolean]
-    - p: ns:ambitoEvento
+    - [a, agenda-municipal:Evento]
+    - [schema.org:endDate, $(), xsd:dateTime]
+    - [schema.org:startDate, $(), xsd:dateTime]
+    - [agenda-municipal:reunionLobby, $(), xsd:boolean]
+    - p: agenda-municipal:ambitoEvento
       o:
       - mapping: triplesMapGovernmentaladministrativeregion
         function:
@@ -77,7 +85,7 @@ mappings:
           parameters:
           - [str1, $()]
           - [str2, $()]
-    - p: ns:documentacion
+    - p: agenda-municipal:documentacion
       o:
       - mapping: triplesMapDigitaldocument
         function:
@@ -85,7 +93,7 @@ mappings:
           parameters:
           - [str1, $()]
           - [str2, $()]
-    - p: ns:rolIntegrante
+    - p: agenda-municipal:rolIntegrante
       o:
       - mapping: triplesMapRolintegranteevento
         function:
@@ -96,41 +104,41 @@ mappings:
   triplesMapGovernmentaladministrativeregion:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/governmentaladministrativeregion/$()
     po:
-    - [a, http://dbpedia.org/ontology/GovernmentalAdministrativeRegion]
+    - [a, ontology:GovernmentalAdministrativeRegion]
   triplesMapConcept:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/concept/$()
     po:
-    - [a, http://www.w3.org/2004/02/skos/core#Concept]
+    - [a, core:Concept]
   triplesMapConceptscheme:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/conceptscheme/$()
     po:
-    - [a, http://www.w3.org/2004/02/skos/core#ConceptScheme]
+    - [a, core:ConceptScheme]
   triplesMapDigitaldocument:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/digitaldocument/$()
     po:
-    - [a, http://schema.org/DigitalDocument]
+    - [a, schema.org:DigitalDocument]
   triplesMapCreativework:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/creativework/$()
     po:
-    - [a, http://schema.org/CreativeWork]
+    - [a, schema.org:CreativeWork]
   triplesMapRolintegranteevento:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/rolintegranteevento/$()
     po:
-    - [a, ns:RolIntegranteEvento]
-    - [ns:inicioAsistencia, $(), xsd:dateTime]
-    - p: ns:evento
+    - [a, agenda-municipal:RolIntegranteEvento]
+    - [agenda-municipal:inicioAsistencia, $(), xsd:dateTime]
+    - p: agenda-municipal:evento
       o:
       - mapping: triplesMapEvento
         function:
@@ -138,7 +146,7 @@ mappings:
           parameters:
           - [str1, $()]
           - [str2, $()]
-    - p: ns:integra
+    - p: agenda-municipal:integra
       o:
       - mapping: triplesMapAgent
         function:
@@ -149,10 +157,10 @@ mappings:
   triplesMapAgent:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/agent/$()
     po:
-    - [a, http://xmlns.com/foaf/0.1/Agent]
-    - p: http://www.w3.org/ns/org#hasMembership
+    - [a, 0.1:Agent]
+    - p: org:hasMembership
       o:
       - mapping: triplesMapMembership
         function:
@@ -163,10 +171,10 @@ mappings:
   triplesMapOrganization:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/organization/$()
     po:
-    - [a, http://www.w3.org/ns/org#Organization]
-    - p: http://vocab.linkeddata.es/datosabiertos/def/sector-publico/organizacion#ambitoCompetencias
+    - [a, org:Organization]
+    - p: organizacion:ambitoCompetencias
       o:
       - mapping: triplesMapGovernmentaladministrativeregion
         function:
@@ -177,12 +185,12 @@ mappings:
   triplesMapVia:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/via/$()
     po:
-    - [a, http://vocab.linkeddata.es/datosabiertos/def/urbanismo-infraestructuras/callejero#Via]
-    - [http://vocab.linkeddata.es/datosabiertos/def/urbanismo-infraestructuras/callejero#particula,
-      $()]
-    - p: http://vocab.linkeddata.es/datosabiertos/def/urbanismo-infraestructuras/callejero#tipoVia
+    - [a, callejero:Via]
+    - [schema.org:address, $()]
+    - [callejero:particula, $()]
+    - p: callejero:tipoVia
       o:
       - mapping: triplesMapConcept
         function:
@@ -193,10 +201,10 @@ mappings:
   triplesMapMembership:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/membership/$()
     po:
-    - [a, http://www.w3.org/ns/org#Membership]
-    - p: http://www.w3.org/ns/org#member
+    - [a, org:Membership]
+    - p: org:member
       o:
       - mapping: triplesMapAgent
         function:
@@ -204,7 +212,7 @@ mappings:
           parameters:
           - [str1, $()]
           - [str2, $()]
-    - p: http://www.w3.org/ns/org#organization
+    - p: org:organization
       o:
       - mapping: triplesMapOrganization
         function:
@@ -212,7 +220,7 @@ mappings:
           parameters:
           - [str1, $()]
           - [str2, $()]
-    - p: http://www.w3.org/ns/org#role
+    - p: org:role
       o:
       - mapping: triplesMapRole
         function:
@@ -223,81 +231,84 @@ mappings:
   triplesMapRole:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/role/$()
     po:
-    - [a, http://www.w3.org/ns/org#Role]
+    - [a, org:Role]
   triplesMapPersona:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/persona/$()
     po:
-    - [a, ns:Persona]
-    - [ns:apellido1, $()]
-    - [ns:apellido2, $()]
-    - [ns:nombre, $()]
+    - [a, agenda-municipal:Persona]
+    - [agenda-municipal:apellido1, $()]
+    - [agenda-municipal:apellido2, $()]
+    - [agenda-municipal:nombre, $()]
   triplesMapDistrict:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/district/$()
     po:
-    - [a, http://dbpedia.org/ontology/District]
+    - [a, ontology:District]
   triplesMapMunicipality:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/municipality/$()
     po:
-    - [a, http://dbpedia.org/ontology/Municipality]
+    - [a, ontology:Municipality]
   triplesMapPostaladdress:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/postaladdress/$()
     po:
-    - [a, http://schema.org/PostalAddress]
+    - [a, schema.org:PostalAddress]
   triplesMapPerson:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/person/$()
     po:
-    - [a, http://xmlns.com/foaf/0.1/Person]
+    - [a, 0.1:Person]
   triplesMapDireccionpostal:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/direccionpostal/$()
     po:
-    - [a, http://vocab.linkeddata.es/datosabiertos/def/commons/direccion-postal#DireccionPostal]
+    - [a, direccion-postal:DireccionPostal]
   triplesMapAddress:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/address/$()
     po:
-    - [a, http://www.w3.org/ns/locn#Address]
+    - [a, locn:Address]
   triplesMapDistrito:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/distrito/$()
     po:
-    - [a, http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#Distrito]
+    - [a, territorio:Distrito]
   triplesMapMunicipio:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/municipio/$()
     po:
-    - [a, http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#Municipio]
+    - [a, territorio:Municipio]
   triplesMapPortal:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/portal/$()
     po:
-    - [a, http://vocab.linkeddata.es/datosabiertos/def/urbanismo-infraestructuras/callejero#Portal]
+    - [a, callejero:Portal]
+    - [schema.org:address, $()]
   triplesMapFeature:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/feature/$()
     po:
-    - [a, http://www.geonames.org/ontology#Feature]
+    - [a, ontology:Feature]
+    - [schema.org:address, $()]
   triplesMapEquipamiento:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/equipamiento/$()
     po:
-    - [a, http://vocab.linkeddata.es/datosabiertos/def/urbanismo-infraestructuras/equipamiento#Equipamiento]
+    - [a, equipamiento:Equipamiento]
+    - [schema.org:address, $()]

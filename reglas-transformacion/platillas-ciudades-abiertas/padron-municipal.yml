@@ -1,18 +1,22 @@
 prefixes: {xsd: http://www.w3.org/2001/XMLSchema#, rr: http://www.w3.org/ns/r2rml#,
   rml: http://semweb.mmlab.be/ns/rml#, rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#,
   ql: http://semweb.mmlab.be/ns/ql#, rdfs: http://www.w3.org/2000/01/rdf-schema#,
-  ns: http://vocab.ciudadesabiertas.es/def/demografia/padron-municipal#}
+  padron-municipal: http://vocab.ciudadesabiertas.es/def/demografia/padron-municipal#,
+  direccion-postal: http://vocab.linkeddata.es/datosabiertos/def/commons/direccion-postal#,
+  schema.org: http://schema.org/, territorio: http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#,
+  core: http://www.w3.org/2004/02/skos/core#, cube: http://purl.org/linked-data/cube#,
+  terms: http://purl.org/dc/terms/}
 mappings:
   triplesMapHabitante:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/habitante/$()
     po:
-    - [a, ns:Habitante]
-    - [ns:activo, $(), xsd:boolean]
-    - [ns:numeroIdentificacionAyuntamiento, $()]
-    - [ns:numeroIdentificacionElectoral, $()]
-    - p: http://schema.org/address
+    - [a, padron-municipal:Habitante]
+    - [padron-municipal:activo, $(), xsd:boolean]
+    - [padron-municipal:numeroIdentificacionAyuntamiento, $()]
+    - [padron-municipal:numeroIdentificacionElectoral, $()]
+    - p: schema.org:address
       o:
       - mapping: triplesMapDireccionpostal
         function:
@@ -20,7 +24,7 @@ mappings:
           parameters:
           - [str1, $()]
           - [str2, $()]
-    - p: ns:consuladoDestino
+    - p: padron-municipal:consuladoDestino
       o:
       - mapping: triplesMapEmbassy
         function:
@@ -28,7 +32,7 @@ mappings:
           parameters:
           - [str1, $()]
           - [str2, $()]
-    - p: ns:consuladoProcedencia
+    - p: padron-municipal:consuladoProcedencia
       o:
       - mapping: triplesMapEmbassy
         function:
@@ -36,7 +40,7 @@ mappings:
           parameters:
           - [str1, $()]
           - [str2, $()]
-    - p: ns:diseminadoResidencia
+    - p: padron-municipal:diseminadoResidencia
       o:
       - mapping: triplesMapDiseminado
         function:
@@ -44,7 +48,7 @@ mappings:
           parameters:
           - [str1, $()]
           - [str2, $()]
-    - p: ns:distritoResidencia
+    - p: padron-municipal:distritoResidencia
       o:
       - mapping: triplesMapDistrito
         function:
@@ -52,7 +56,7 @@ mappings:
           parameters:
           - [str1, $()]
           - [str2, $()]
-    - p: ns:entidadColectivaResidencia
+    - p: padron-municipal:entidadColectivaResidencia
       o:
       - mapping: triplesMapEntidadcolectiva
         function:
@@ -60,7 +64,7 @@ mappings:
           parameters:
           - [str1, $()]
           - [str2, $()]
-    - p: ns:entidadSingularResidencia
+    - p: padron-municipal:entidadSingularResidencia
       o:
       - mapping: triplesMapEntidadsingular
         function:
@@ -68,7 +72,7 @@ mappings:
           parameters:
           - [str1, $()]
           - [str2, $()]
-    - p: ns:municipioDestino
+    - p: padron-municipal:municipioDestino
       o:
       - mapping: triplesMapMunicipio
         function:
@@ -76,7 +80,7 @@ mappings:
           parameters:
           - [str1, $()]
           - [str2, $()]
-    - p: ns:municipioNacimiento
+    - p: padron-municipal:municipioNacimiento
       o:
       - mapping: triplesMapMunicipio
         function:
@@ -84,7 +88,7 @@ mappings:
           parameters:
           - [str1, $()]
           - [str2, $()]
-    - p: ns:municipioResidencia
+    - p: padron-municipal:municipioResidencia
       o:
       - mapping: triplesMapMunicipio
         function:
@@ -92,7 +96,7 @@ mappings:
           parameters:
           - [str1, $()]
           - [str2, $()]
-    - p: ns:nucleoResidencia
+    - p: padron-municipal:nucleoResidencia
       o:
       - mapping: triplesMapNucleopoblacion
         function:
@@ -100,7 +104,7 @@ mappings:
           parameters:
           - [str1, $()]
           - [str2, $()]
-    - p: ns:paisDestino
+    - p: padron-municipal:paisDestino
       o:
       - mapping: triplesMapPais
         function:
@@ -108,7 +112,7 @@ mappings:
           parameters:
           - [str1, $()]
           - [str2, $()]
-    - p: ns:paisNacimiento
+    - p: padron-municipal:paisNacimiento
       o:
       - mapping: triplesMapPais
         function:
@@ -116,7 +120,7 @@ mappings:
           parameters:
           - [str1, $()]
           - [str2, $()]
-    - p: ns:provinciaDestino
+    - p: padron-municipal:provinciaDestino
       o:
       - mapping: triplesMapProvincia
         function:
@@ -124,7 +128,7 @@ mappings:
           parameters:
           - [str1, $()]
           - [str2, $()]
-    - p: ns:provinciaNacimiento
+    - p: padron-municipal:provinciaNacimiento
       o:
       - mapping: triplesMapProvincia
         function:
@@ -132,7 +136,7 @@ mappings:
           parameters:
           - [str1, $()]
           - [str2, $()]
-    - p: ns:provinciaResidencia
+    - p: padron-municipal:provinciaResidencia
       o:
       - mapping: triplesMapProvincia
         function:
@@ -140,7 +144,7 @@ mappings:
           parameters:
           - [str1, $()]
           - [str2, $()]
-    - p: ns:seccionResidencia
+    - p: padron-municipal:seccionResidencia
       o:
       - mapping: triplesMapSeccioncensal
         function:
@@ -151,48 +155,48 @@ mappings:
   triplesMapDireccionpostal:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/direccionpostal/$()
     po:
-    - [a, http://vocab.linkeddata.es/datosabiertos/def/commons/direccion-postal#DireccionPostal]
+    - [a, direccion-postal:DireccionPostal]
   triplesMapEmbassy:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/embassy/$()
     po:
-    - [a, http://schema.org/Embassy]
+    - [a, schema.org:Embassy]
   triplesMapDiseminado:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/diseminado/$()
     po:
-    - [a, http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#Diseminado]
+    - [a, territorio:Diseminado]
   triplesMapDistrito:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/distrito/$()
     po:
-    - [a, http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#Distrito]
+    - [a, territorio:Distrito]
   triplesMapEntidadcolectiva:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/entidadcolectiva/$()
     po:
-    - [a, http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#EntidadColectiva]
+    - [a, territorio:EntidadColectiva]
   triplesMapEntidadsingular:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/entidadsingular/$()
     po:
-    - [a, http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#EntidadSingular]
+    - [a, territorio:EntidadSingular]
   triplesMapVariacionhabitante:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/variacionhabitante/$()
     po:
-    - [a, ns:VariacionHabitante]
-    - [ns:fechaVariacion, $(), xsd:date]
-    - [ns:numeroHojaPadronal, $()]
-    - p: ns:modificaHabitante
+    - [a, padron-municipal:VariacionHabitante]
+    - [padron-municipal:fechaVariacion, $(), xsd:date]
+    - [padron-municipal:numeroHojaPadronal, $()]
+    - p: padron-municipal:modificaHabitante
       o:
       - mapping: triplesMapHabitante
         function:
@@ -200,7 +204,7 @@ mappings:
           parameters:
           - [str1, $()]
           - [str2, $()]
-    - p: ns:registraHabitante
+    - p: padron-municipal:registraHabitante
       o:
       - mapping: triplesMapHabitante
         function:
@@ -211,54 +215,54 @@ mappings:
   triplesMapMunicipio:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/municipio/$()
     po:
-    - [a, http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#Municipio]
+    - [a, territorio:Municipio]
   triplesMapConcept:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/concept/$()
     po:
-    - [a, http://www.w3.org/2004/02/skos/core#Concept]
+    - [a, core:Concept]
   triplesMapNucleopoblacion:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/nucleopoblacion/$()
     po:
-    - [a, http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#NucleoPoblacion]
+    - [a, territorio:NucleoPoblacion]
   triplesMapPais:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/pais/$()
     po:
-    - [a, http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#Pais]
+    - [a, territorio:Pais]
   triplesMapProvincia:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/provincia/$()
     po:
-    - [a, http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#Provincia]
+    - [a, territorio:Provincia]
   triplesMapSeccioncensal:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/seccioncensal/$()
     po:
-    - [a, http://vocab.linkeddata.es/datosabiertos/def/sector-publico/territorio#SeccionCensal]
+    - [a, territorio:SeccionCensal]
   triplesMapDimensionproperty:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/dimensionproperty/$()
     po:
-    - [a, http://purl.org/linked-data/cube#DimensionProperty]
+    - [a, cube:DimensionProperty]
   triplesMapPerson:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/person/$()
     po:
-    - [a, http://schema.org/Person]
+    - [a, schema.org:Person]
   triplesMapConceptscheme:
     sources:
     - []
-    s: http://$()
+    s: http://example.org/resource/conceptscheme/$()
     po:
-    - [a, http://www.w3.org/2004/02/skos/core#ConceptScheme]
+    - [a, core:ConceptScheme]
