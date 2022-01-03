@@ -25,7 +25,7 @@ prefixes:
 mappings:
   terraza:
     sources:
-      - [/Users/dchaves/Downloads/test/Terrazas.csv~csv]
+      - [/data/Terrazas-OpenRefine.csv~csv]
     s: http://datos.madrid.es/recurso/terraza/$(id_terraza)
     po:
       - [a, escom:Terraza]
@@ -46,7 +46,7 @@ mappings:
 
   localcomercial:
     sources:
-      - [/Users/dchaves/Downloads/test/Terrazas.csv~csv]
+      - [/data/Terrazas-OpenRefine.csv~csv]
     s: http://datos.madrid.es/recurso/localcomercial/$(id_local)
     po:
       - [a, escom:LocalComercial] # NO COMPELTO! faltaria sus propiedades de datos y objeto por definir
@@ -57,7 +57,7 @@ mappings:
   point:
     localcomercial:
     sources:
-      - [/Users/dchaves/Downloads/test/Terrazas.csv~csv]
+      - [/data/Terrazas-OpenRefine.csv~csv]
     s: http://datos.madrid.es/recurso/localcomercial/$(id_local)/geometry
     po:
       - [a, sf:Point] # NO COMPELTO! faltaria sus propiedades de datos y objeto por definir
@@ -66,7 +66,7 @@ mappings:
 
   direccionpostal:
     sources:
-      - [/Users/dchaves/Downloads/test/Terrazas.csv~csv]
+      - [/data/Terrazas-OpenRefine.csv~csv]
     s: http://datos.madrid.es/recurso/direccionpostal/$(id_vial_edificio)-$(num_edificio)-$(Cod_Postal)
     po:
       - [a, esdir:DireccionPostal] # NO COMPELTO! faltaria sus propiedades de datos y objeto por definir
